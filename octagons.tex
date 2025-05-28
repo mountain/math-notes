@@ -1,0 +1,151 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm} % For mathematical symbols and theorem environments
+\usepackage[utf8]{inputenc} % Standard encoding
+
+% LaTeX Note Title
+\title{A Rotational Construction of Genus $g$ Surfaces from $(g-1)$ Octagons: An Alternative to the Standard $4g$-gon Approach}
+
+% Authors
+\author{Mingli Yuan \and Gemini}
+
+% Date
+\date{\today}
+
+% Theorem-like environments (optional, but good for structure)
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note details a constructive method for orientable closed surfaces of genus $g \ge 2$. It leverages the concept of a genus $g$ surface $S_g$ as an $N=(g-1)$-sheeted $Z_N$-symmetric regular covering of a genus 2 surface $S_2$. We demonstrate that by gluing $N$ octagonal fundamental domains of $S_2$ according to specific rules derived from this covering structure, a surface of genus $g$ is indeed formed. This approach provides an alternative perspective to the standard construction of $S_g$ from a single $4g$-sided polygon and explicitly highlights the hierarchical relationship between $S_g$ and $S_2$. We present the general construction, a proof of its resulting genus using Euler characteristics, and illustrate it with a detailed example for $g=3$.
+\end{abstract}
+
+\section*{Acknowledgements}
+We extend our sincere gratitude to Professor Yue Chen for insightful guidance and discussions that inspired this exploration.
+
+\section{Introduction: The Special Role of Genus 2 Surfaces and Rotational Constructions}
+
+The study of Riemann surfaces and their topological classification is a cornerstone of modern geometry and topology. Closed orientable surfaces are uniquely classified by their genus $g$, which intuitively counts the number of "handles" on the surface. The standard method for constructing a surface of genus $g$ involves identifying the sides of a single $4g$-sided polygon in a specific sequence (e.g., $a_1 b_1 a_1^{-1} b_1^{-1} \ldots a_g b_g a_g^{-1} b_g^{-1}$).
+
+Genus $g=2$ surfaces hold a special position as they are the simplest (lowest genus) closed hyperbolic surfaces. Their fundamental domain can be represented by an octagon with sides identified in pairs. Observations of highly symmetric surfaces, such as specific examples of higher-genus surfaces exhibiting rotational symmetry as coverings of lower-genus surfaces (e.g., an 11-hole torus as a 5-fold rotationally symmetric cover of a 3-hole torus), suggest the utility of "rotational construction methods." These methods often involve building a more complex surface from simpler units arranged with specific symmetries, or viewing a surface as a quotient of a more symmetric one by a group action.
+
+This note explores a particular construction method for a genus $g$ surface ($S_g$) that emerged from considering $S_g$ as an $N=(g-1)$-sheeted regular covering of a fixed genus 2 surface ($S_2$). The deck transformation group for this covering is the cyclic group $Z_N$. This perspective leads to a method of building $S_g$ from $N$ octagonal fundamental domains associated with $S_2$, glued according to rules dictated by the covering structure and the chosen $Z_N$ symmetry. This approach is distinct from the standard single $4g$-gon construction. It offers insights into the hierarchical relationship between surfaces of different genera, with $S_2$ (represented by its octagon) acting as a foundational building block for these specific symmetric constructions. We detail this construction, verify the genus of the resulting surface, and provide a concrete example.
+
+\section{The General Construction from $N=(g-1)$ Octagons}
+
+Let $S_2$ be a genus 2 surface. Its fundamental domain in the hyperbolic plane $\mathbb{H}^2$ can be chosen as an octagon $P_2$. The sides of $P_2$, denoted $e_1, e_2, \ldots, e_8$ in cyclic order, are identified in pairs by elements of the fundamental group $\Gamma_2 = \pi_1(S_2)$. A standard pairing scheme is:
+\begin{itemize}
+    \item $e_1$ is paired with $e_3^{-1}$ (via generator $A_1 \in \Gamma_2$).
+    \item $e_2$ is paired with $e_4^{-1}$ (via generator $B_1 \in \Gamma_2$).
+    \item $e_5$ is paired with $e_7^{-1}$ (via generator $A_2 \in \Gamma_2$).
+    \item $e_6$ is paired with $e_8^{-1}$ (via generator $B_2 \in \Gamma_2$).
+\end{itemize}
+These generators satisfy the relation $[A_1, B_1][A_2, B_2] = 1$ in $\Gamma_2$.
+
+We construct a surface $S_g$ of target genus $g \ge 2$ as an $N=(g-1)$-sheeted regular covering of $S_2$, with the deck transformation group being $Z_N = \{\bar{0}, \bar{1}, \ldots, \overline{N-1}\}$ (integers modulo $N$). This covering is defined by a surjective homomorphism $\phi: \Gamma_2 \to Z_N$. For specificity and simplicity in deriving the gluing rules, we choose the homomorphism:
+$$ \phi(A_1) = \bar{1}, \quad \phi(B_1) = \bar{0}, \quad \phi(A_2) = \bar{0}, \quad \phi(B_2) = \bar{0}. $$
+The fundamental group of $S_g$ is then $\Gamma_g = \ker(\phi)$.
+
+The surface $S_g$ can be formed by taking $N$ copies of the octagon $P_2$, which we denote $P_2^j$ for $j \in \{0, 1, \ldots, N-1\}$. Let $e_i^j$ be the $i$-th edge of the $j$-th octagon $P_2^j$. The gluing rules for these $8N$ edges to form $S_g$ are determined as follows: if an edge $e_i$ in the original $P_2$ is paired with $e_k^{-1}$ by an element $X \in \Gamma_2$, then the edge $e_i^j$ in $P_2^j$ is paired with the edge $(e_k^{(j+\phi(X)) \pmod N})^{-1}$ in $P_2^{(j+\phi(X)) \pmod N}$.
+
+Applying this principle with our chosen $\phi$:
+\begin{enumerate}
+    \item For $e_1^j$ (paired by $A_1$, with $\phi(A_1)=\bar{1}$): $e_1^j$ is paired with $(e_3^{(j+1) \pmod N})^{-1}$.
+    \item For $e_2^j$ (paired by $B_1$, with $\phi(B_1)=\bar{0}$): $e_2^j$ is paired with $(e_4^j)^{-1}$.
+    \item For $e_5^j$ (paired by $A_2$, with $\phi(A_2)=\bar{0}$): $e_5^j$ is paired with $(e_7^j)^{-1}$.
+    \item For $e_6^j$ (paired by $B_2$, with $\phi(B_2)=\bar{0}$): $e_6^j$ is paired with $(e_8^j)^{-1}$.
+\end{enumerate}
+These pairings apply for each $j \in \{0, 1, \ldots, N-1\}$.
+
+\section{Proof of Genus for the General Construction}
+We use the Euler characteristic formula $\chi = V - E + F$ for the cell complex formed by the $N$ octagons and their identifications. Since all gluing rules are of the form $e_a \leftrightarrow (e_b)^{-1}$ (identifying an edge with the inverse of another), the resulting surface is orientable. For a closed orientable surface of genus $g_{calc}$, its Euler characteristic is $\chi = 2 - 2g_{calc}$.
+
+\begin{enumerate}
+    \item \textbf{Number of Faces (F)}: We start with $N$ octagons, so $F = N$. Since $N=g-1$, we have $F = g-1$.
+
+    \item \textbf{Number of Edges (E)}: There are $8N$ edges in total before gluing. Each of the $4N$ gluing rules ( $N$ rules for each of the four pairing types listed above) identifies two edges. Thus, the number of distinct edges after gluing is $E = \frac{8N}{2} = 4N$. So, $E = 4(g-1)$.
+
+    \item \textbf{Number of Vertices (V)}: Let $v_k^j$ denote the $k$-th vertex of the $j$-th octagon $P_2^j$ (e.g., $v_1^j$ is between $e_8^j$ and $e_1^j$, $v_2^j$ is between $e_1^j$ and $e_2^j$, and so on).
+    The gluing rules of type 2, 3, and 4 (corresponding to $B_1, A_2, B_2$ for which $\phi(X)=\bar{0}$) occur *within* each octagon $P_2^j$. For a single octagon forming a genus 2 component (if its own $e_1, e_3$ were paired internally), all 8 vertices become equivalent. However, here $e_1, e_3$ are involved in inter-octagon gluing. The internal identifications within $P_2^j$ via $B_1, A_2, B_2$ lead to two local vertex classes in each $P_2^j$:
+    \begin{itemize}
+        \item $G_{jA} = \{v_1^j, v_2^j, v_5^j, v_6^j, v_7^j, v_8^j\}$ (6 vertices)
+        \item $G_{jB} = \{v_3^j, v_4^j\}$ (2 vertices)
+    \end{itemize}
+    The type 1 gluing rule, $e_1^j \leftrightarrow (e_3^{(j+1) \pmod N})^{-1}$, connects vertices across different octagons. Specifically, it identifies $t(e_1^j)=v_1^j$ with $h(e_3^{(j+1)})=v_4^{(j+1)}$, and $h(e_1^j)=v_2^j$ with $t(e_3^{(j+1)})=v_3^{(j+1)}$. Both these identifications imply that the vertex class $G_{jA}$ from octagon $j$ becomes equivalent to the vertex class $G_{(j+1) \pmod N, B}$ from octagon $(j+1) \pmod N$.
+    We have $N$ local classes of type A ($A_0, \ldots, A_{N-1}$) and $N$ local classes of type B ($B_0, \ldots, B_{N-1}$). The $N$ relations $A_j \sim B_{(j+1) \pmod N}$ (for $j=0, \ldots, N-1$) link these $2N$ local classes. These relations form $N$ disjoint sets of equivalences, each combining one $A$-type class with one $B$-type class (e.g., $A_j$ is identified with $B_{j+1}$). Therefore, there are $N$ distinct global equivalence classes of vertices.
+    Thus, $V = N = g-1$.
+
+    \item \textbf{Euler Characteristic ($\chi$)}:
+    $$ \chi = V - E + F = N - 4N + N = -2N $$
+    Substituting $N = g-1$:
+    $$ \chi = -2(g-1) = 2 - 2g $$
+
+    \item \textbf{Calculated Genus ($g_{calc}$)}:
+    Since the surface is orientable, $\chi = 2 - 2g_{calc}$.
+    Equating the two expressions for $\chi$:
+    $$ 2 - 2g_{calc} = 2 - 2g $$
+    This implies $g_{calc} = g$.
+\end{enumerate}
+This general calculation confirms that the construction method yields an orientable closed surface of the intended genus $g$.
+
+\section{Example: Genus $g=3$ (from $N=2$ Octagons)}
+Let $g=3$, so $N=g-1=2$. We use two octagons, $P_2^0$ (octagon 0) and $P_2^1$ (octagon 1). The gluing rules derived from the general formula are:
+\begin{itemize}
+    \item $e_1^0 \leftrightarrow (e_3^{(0+1)\pmod 2})^{-1} \Rightarrow e_1^0 \leftrightarrow (e_3^1)^{-1}$
+    \item $e_2^0 \leftrightarrow (e_4^0)^{-1}$
+    \item $e_5^0 \leftrightarrow (e_7^0)^{-1}$
+    \item $e_6^0 \leftrightarrow (e_8^0)^{-1}$
+\end{itemize}
+and for $j=1$:
+\begin{itemize}
+    \item $e_1^1 \leftrightarrow (e_3^{(1+1)\pmod 2})^{-1} \Rightarrow e_1^1 \leftrightarrow (e_3^0)^{-1}$
+    \item $e_2^1 \leftrightarrow (e_4^1)^{-1}$
+    \item $e_5^1 \leftrightarrow (e_7^1)^{-1}$
+    \item $e_6^1 \leftrightarrow (e_8^1)^{-1}$
+\end{itemize}
+The calculation of the genus proceeds as follows:
+\begin{enumerate}
+    \item \textbf{Faces (F)}: $F=2$.
+    \item \textbf{Edges (E)}: $E=4N = 4(2) = 8$. (Initially 16 edges from two octagons, 8 gluing relations identify them in pairs).
+    \item \textbf{Vertices (V)}:
+        Within octagon 0, the internal gluings ($e_2^0 \leftrightarrow (e_4^0)^{-1}$, $e_5^0 \leftrightarrow (e_7^0)^{-1}$, $e_6^0 \leftrightarrow (e_8^0)^{-1}$) result in two local vertex classes: $G_{0A} = \{v_1^0, v_2^0, v_5^0, v_6^0, v_7^0, v_8^0\}$ and $G_{0B} = \{v_3^0, v_4^0\}$.
+        Similarly, for octagon 1: $G_{1A} = \{v_1^1, v_2^1, v_5^1, v_6^1, v_7^1, v_8^1\}$ and $G_{1B} = \{v_3^1, v_4^1\}$.
+        The cross-octagon gluings are:
+        \begin{itemize}
+            \item $e_1^0 \leftrightarrow (e_3^1)^{-1}$ implies $G_{0A} \sim G_{1B}$.
+            \item $e_1^1 \leftrightarrow (e_3^0)^{-1}$ implies $G_{1A} \sim G_{0B}$.
+        \end{itemize}
+        These relations combine the four local classes into two distinct global vertex classes: $VC_1 = G_{0A} \cup G_{1B}$ and $VC_2 = G_{1A} \cup G_{0B}$.
+        Thus, $V=2$.
+    \item \textbf{Euler Characteristic ($\chi$)}:
+    $$ \chi = V - E + F = 2 - 8 + 2 = -4 $$
+    \item \textbf{Calculated Genus ($g_{calc}$)}:
+    Since the surface is orientable, $\chi = 2 - 2g_{calc}$.
+    $$ -4 = 2 - 2g_{calc} \implies 2g_{calc} = 6 \implies g_{calc} = 3 $$
+\end{enumerate}
+This matches the intended genus $g=3$.
+
+\section{Discussion and Further Remarks}
+The construction method detailed in this note offers an alternative to the standard procedure of building a genus $g$ surface from a single $4g$-sided polygon. It particularly emphasizes a hierarchical relationship: a genus $g$ surface can be constructed from $N=g-1$ "blocks," where each block is an octagon (the fundamental domain of a genus 2 surface), connected in a cyclic manner that reflects the $Z_N$ symmetry of the covering $S_g \to S_2$.
+
+\textbf{Nature of the Fundamental Domain:}
+The union of the $N=(g-1)$ octagons in the hyperbolic plane, $P_g^* = \bigcup_{k=0}^{N-1} s^k(P_2)$ (where $P_2$ is the fundamental octagon for $\Gamma_2 = \pi_1(S_2)$, and $s \in \Gamma_2$ is an element whose image $\phi(s)$ generates $Z_N$), forms a legitimate fundamental domain for the resulting genus $g$ surface $S_g = \mathbb{H}^2/\Gamma_g$. The gluing rules defined are precisely the side-pairings of this larger domain $P_g^*$ by elements of $\Gamma_g = \ker(\phi)$. While the canonical fundamental domain is often presented as a $4g$-gon, $P_g^*$ is a polygon (formed by $N$ adjoined octagons) whose boundary edges are identified by $\Gamma_g$ to yield $S_g$. $P_g^*$ can be transformed into a standard $4g$-gon via topological cutting and pasting operations.
+
+\textbf{The Covering Map Interpretation:}
+The map $p: S_g \to S_2$ inherent in this construction is, by design, an $N=(g-1)$-sheeted regular covering map, with $Z_N$ as the group of deck transformations. Each of the $N$ octagonal components $s^k(P_2)$ within the domain $P_g^*$ projects down to $S_2$ (via $p \circ \pi_g$, where $\pi_g: \mathbb{H}^2 \to S_g$ is the universal covering projection) in a manner that essentially "covers" the base $S_2$ once. The assembly of these $N$ components to form $S_g$ directly manifests the $N$-sheeted nature of the covering.
+
+\textbf{Hierarchical Relationship of Fundamental Groups:}
+In this construction, the fundamental group $\Gamma_g = \pi_1(S_g)$ is a normal subgroup of index $N=g-1$ in $\Gamma_2 = \pi_1(S_2)$. If we consider "this class of groups" to be the set $\{\Gamma_g\}$ constructed as normal subgroups of a *fixed* $\Gamma_2$ via this $Z_{g-1}$ symmetric covering mechanism (for varying $g \ge 2$), then this fixed $\Gamma_2$ resides at the "top" of this specific hierarchy (lattice) of subgroups. More broadly, within the lattice of all fundamental groups of closed hyperbolic surfaces $\Gamma_k$ ($k \ge 2$) ordered by subgroup inclusion, $\Gamma_2$ groups are maximal elements, as they cannot be proper subgroups of another $\Gamma_h$ (where $h \ge 2$).
+
+This method provides a constructive and symmetrical way to visualize and build higher genus surfaces from simpler, well-understood components (octagons representing genus 2 structures), offering a different perspective on their topology and interrelations. It underscores the special role of the genus 2 surface as a base for this particular family of symmetric constructions.
+
+\end{document}
