@@ -70,7 +70,9 @@ For $\F_7$ the situation is particularly clean.  The conic
 has exactly $7+1=8$ points, and these points form a cyclic group of order $8$
 under the multiplication of the field $\F_{49}$.  This gives a finite analogue
 of the circle group, with angle group $\Z/8$, and a finite trigonometry whose
-identities are polynomial identities over $\F_7$.
+identities are polynomial identities over $\F_7$.  Finite-field trigonometry
+has been studied in \cite{FFTrig}; the present note is a concrete geometric
+model, with explicit figures and computational checks.
 
 The plan is:
 \begin{enumerate}
@@ -83,12 +85,14 @@ The plan is:
         (Section~\ref{sec:euclid});
   \item give the stereographic/half-angle coordinate (Section~\ref{sec:stereo});
   \item draw the discrete waveforms (Section~\ref{sec:waveforms});
-  \item introduce the harmonic layer: characters of $\Z/8$ and the finite
-        Fourier transform (Section~\ref{sec:fourier});
+  \item introduce the harmonic layers: finite-field characters in $\F_{49}$ and
+        the complex Fourier transform (Section~\ref{sec:fourier});
   \item state what is not claimed and what comes next (Section~\ref{sec:boundary}).
 \end{enumerate}
 
-Throughout, $\F_7=\{0,1,\dots,6\}$ with arithmetic modulo $7$; standard background on finite fields is in \cite{Lidl}.  The element
+Throughout, $\F_7=\{0,1,\dots,6\}$ with arithmetic modulo $7$; standard
+background on finite fields is in \cite{Lidl}.  We refer to \cite{Paper0} and
+\cite{Paper1} as Paper~0 and Paper~I.  The element
 $\ii$ is a formal square root of $-1$; since $-1$ is not a square in $\F_7$
 (the squares are $0,1,2,4$), the ring $\F_7[\ii]/(\ii^2+1)$ is a field with
 $49$ elements.
@@ -520,7 +524,7 @@ model & centre & affine stabiliser & angle group & cyclic order\\
 \midrule
 ellipse & $(0,0)$ & $\mathrm{O}_2(\F_7)\cong D_8$ & $\Z/8$ & $8$ points\\
 hyperbola & $(0,0)$ & $\mathrm{O}_{1,1}(\F_7)\cong D_6$ & $\Z/6$ & $6$ finite $+$ $2$ fixed\\
-parabola & at infinity & $D_7$ & $\Z/7$ & $7$ finite $+$ $1$ fixed\\
+parabola & at infinity & $\mathrm{AGL}_1(\F_7)$ & $\Z/7$ & $7$ finite $+$ $1$ fixed\\
 \bottomrule
 \end{tabularx}
 \caption{The centre, the affine stabiliser, and the regular angle group for the
@@ -530,9 +534,13 @@ parabola.}
 \label{tab:center}
 \end{table}
 
-Table~\ref{tab:center} records the three models.  In each case the regular
-angle group is the rotation part of the affine stabiliser of the centre; the
-points fixed by it are the intersections of $L_\infty$ with $C$ (none for the
+Table~\ref{tab:center} records the three models.  The regular angle group is
+the subgroup acting regularly on the finite points: for the ellipse and
+hyperbola it is the rotation part of the affine stabiliser, while for the
+parabola it is the unipotent part.  The parabola's full affine stabiliser is
+$\mathrm{AGL}_1(\F_7)$ of order $42$, not the dihedral group $D_7$ of order $14$;
+$D_7$ is only the subgroup with linear part $a=\pm1$.  The points fixed by the
+regular action are the intersections of $L_\infty$ with $C$ (none for the
 ellipse, two for the hyperbola, one for the parabola).
 
 \subsection{Arcs, gluing, and transitivity}
@@ -575,8 +583,9 @@ The question of transitivity has three different answers.
       \[
         [\Z/8:\langle S\rangle].
       \]
-      The reachability graph is connected (transitive) exactly when
-      $\langle S\rangle=\Z/8$.
+      The reachability graph has one component exactly when
+      $\langle S\rangle=\Z/8$; the reachability relation itself is always
+      transitive.
 \item \emph{The arc category.}  With all lengths allowed, the arc groupoid is
       transitive (connected): any point reaches any other point.  With a
       restricted set $S$ of lengths, one gets the subgroupoid of
@@ -615,7 +624,8 @@ $\Z/8$ & $\Z/8$ & $1$ & yes\\
 \caption{Allowed arc lengths $S$, the subgroup they generate, the number of
 reachability components, and whether the one-step relation is transitive.  For
 nonempty $S$ the one-step relation is transitive exactly for the subgroups;
-reachability is transitive exactly when $S$ generates $\Z/8$.}
+reachability is always transitive, and it has exactly one component when $S$
+generates $\Z/8$.}
 \label{tab:arcs}
 \end{table}
 
@@ -629,8 +639,11 @@ This is the finite analogue of the fundamental groupoid of the circle.  The
 topological circle has path groupoid with automorphism group
 $\pi_1(S^1)=\Z$; the finite arc groupoid with winding has the same automorphism
 group $\Z$, and its projection to the eight points is the quotient by the full
-turn $8$.  The simple arcs are the fundamental category; the full turns are the
-endomorphisms.
+turn $8$.  The simple arcs form a partial composition structure (composition is defined
+only when the total length is at most $8$); the action groupoid of $\Z$
+(integer winding) is the groupoid with automorphism group $\Z$.  Calling the
+simple arcs a ``fundamental category'' is only informal; the categorical
+structure with integer winding is the groupoid.
 
 \subsection{Experiment: translating the circle}
 \label{subsec:translate}
@@ -734,10 +747,41 @@ The family of circles is
 \[
   \mathcal C=\{(O,r):O\in\F_7^2,\ r\in\F_7\}.
 \]
-The translations act transitively on the centres with $r$ fixed; the
-similarity group (translations, orthogonal transformations, dilations) acts on
-the radius by $r\mapsto\lambda^2r$.  The group actions are summarized in
-Table~\ref{tab:circles}.
+The translations act transitively on the centres with $r$ fixed.  For the
+linear part there are three different groups, and they must not be conflated:
+\begin{itemize}
+  \item the orthogonal group $\mathrm O(Q)$: $Q(Av)=Q(v)$;
+  \item the scalar similarities $\F_7^\times\mathrm O(Q)$: $A=\lambda R$,
+        $Q(Av)=\lambda^2Q(v)$;
+  \item the full similarity group $\mathrm{GO}(Q)$: $Q(Av)=\mu Q(v)$ for some
+        $\mu\in\F_7^\times$.
+\end{itemize}
+General quadratic-form theory uses the last group.  Its elements need not be
+scalar multiples of orthogonal maps: for example
+\[
+  A=\begin{pmatrix}1&4\\3&1\end{pmatrix},
+  \qquad A^{T}A=3I,
+\]
+so $Q(Av)=3Q(v)$ and $A(S_1)=S_3$, although $3$ is a nonsquare in $\F_7$.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+group & definition & order & orbits on nonzero $S_r$\\
+\midrule
+$\mathrm O(Q)$ & $Q(Av)=Q(v)$ & $16$ & six\\
+$\F_7^\times\mathrm O(Q)$ & $A=\lambda R$ & $48$ & two square classes\\
+$\mathrm{GO}(Q)$ & $Q(Av)=\mu Q(v)$ & $96$ & one\\
+\bottomrule
+\end{tabular}
+\caption{The three linear groups.  $\mathrm{GO}(Q)$ is the full similarity
+group of the quadratic form; the scalar similarities are the subgroup with
+$\mu$ a square.  The orbit counts on the six nonzero norm circles are
+$6$, $2$, and $1$.}
+\label{tab:similarity-groups}
+\end{table}
 
 \begin{table}[htbp]
 \centering
@@ -747,13 +791,16 @@ Table~\ref{tab:circles}.
 group & action on $(O,r)$ & preserves circles?\\
 \midrule
 translations & $O\mapsto O+t$, $r$ fixed & yes\\
-similarities & $O\mapsto\lambda RO+t$, $r\mapsto\lambda^2r$ & yes\\
-affine & $O\mapsto AO+t$ & only if $A=\lambda R$; otherwise circles $\to$ ellipses\\
-projective & general & only if $\{I,J\}$ is preserved; otherwise circles $\to$ conics\\
+$\F_7^\times\mathrm O(Q)$ & $O\mapsto\lambda RO+t$, $r\mapsto\lambda^2r$ & yes\\
+$\mathrm{GO}(Q)$ & $O\mapsto AO+t$, $r\mapsto\mu r$ & yes\\
+affine & $O\mapsto AO+t$ & iff $A\in\mathrm{GO}(Q)$; otherwise ellipses\\
+projective & general & iff $\{I,J\}$ is preserved; otherwise conics\\
 \bottomrule
 \end{tabular}
-\caption{The circle is a similarity structure, not an affine or projective one.
-$I,J$ are the circular points at infinity.}
+\caption{The circle is a similarity structure, not merely an affine or
+projective one.  The full similarity group $\mathrm{GO}(Q)$ acts transitively on
+the nonzero circles; the scalar similarities $\F_7^\times\mathrm O(Q)$ have the
+two square-class orbits.  $I,J$ are the circular points at infinity.}
 \label{tab:circles}
 \end{table}
 
@@ -763,28 +810,35 @@ $Q(x,y)=x^2+y^2$ and put $z=0$: the two points
   I=[1:\ii:0],\qquad J=[1:-\ii:0]
 \]
 in $\PP^2(\F_{49})$ satisfy $x^2+y^2=0$.  A conic is a circle exactly when it
-passes through $I$ and $J$.  The similarity group is the stabilizer of the pair
-$\{I,J\}$; a general affine map acts on the line at infinity by its linear part
-and moves $I,J$ unless the linear part is a similarity, so it sends a circle to
+passes through $I$ and $J$.  The stabilizer of the pair $\{I,J\}$ in the
+projective group is the full affine similarity group $\mathrm{GO}(Q)$; a
+general affine map acts on the line at infinity by its linear part and moves
+$I,J$ unless the linear part lies in $\mathrm{GO}(Q)$, so it sends a circle to
 an ellipse; a general projectivity sends a circle to a conic not through $I,J$.
 The conic is projective; the circle is a similarity notion.
 
-The angle group is transported with the centre.  The stabilizer of $O$ in the
-similarity group is $\mathrm O_2(\F_7)$; its rotation subgroup is
-$G=\mathrm{SO}_2(\F_7)\cong\Z/8$.  For the translated circle the angle group is
-$TGT^{-1}$, and the cyclic order and the arc structure are transported by $T$.
-Thus the whole structure --- centre, circle, angle group, cyclic order, arcs ---
-is transportable under translations, and under similarities up to the square
-class of $r$.
+The angle group is transported with the centre and the circle.  The stabilizer
+of $O$ \emph{and} a nonzero circle $S_r$ in the affine similarity group is
+$\mathrm O(Q)$; its rotation subgroup is $G=\mathrm{SO}(Q)\cong\Z/8$.  For the
+translated circle the angle group is $TGT^{-1}$, and the cyclic order and the
+arc structure are transported by $T$.  The stabilizer of $O$ alone is the
+larger group $\mathrm{GO}(Q)$: it also contains the dilations that move the
+circle, and those are not angle rotations.  Thus the whole rigid structure ---
+centre, a chosen circle, angle group, cyclic order, arcs --- is transportable
+under translations, and under the full similarity group up to the choice of the
+radius.
 
-The square classes are the only obstruction to moving between different radii:
+The square classes are the obstruction for the \emph{scalar} similarities
+$\F_7^\times\mathrm O(Q)$, not for $\mathrm{GO}(Q)$:
 \[
   \F_7^\times/\F_7^{\times2}=\{\{1,2,4\},\{3,5,6\}\}.
 \]
-The unit circle is similar to the circles of square radius, not to those of
-nonsquare radius.  Over $\R$ the positive radii form one orbit; over $\C$ all
-nonzero radii form one orbit.  This is the same square-class phenomenon as the
-earlier trichotomy.
+Under $\F_7^\times\mathrm O(Q)$ the unit circle is similar only to the
+square-radius circles.  Under $\mathrm{GO}(Q)$ it is similar to every nonzero
+circle, because the multiplier $\mu$ may be a nonsquare.  Over $\R$ the
+positive scalar similarities already act transitively on the positive radii;
+over $\F_7$ the scalar multipliers are squares, hence the two orbits, and
+$\mathrm{GO}(Q)$ adds the nonsquare multipliers that repair the gap.
 
 \subsection{Scaling and the ripple pencil}
 \label{subsec:ripple}
@@ -810,26 +864,35 @@ two scaling orbits,
 the square classes of the radius.
 
 \paragraph{The ripple pencil.}
-The clue horocycles in the finite model are the horizontal lines
+The affine clue horocycles in the finite model are the horizontal lines
 \[
-  H_t=\{y=t\},\qquad t\in\F_7 ,
+  H_t=\{x+ti:x\in\F_7\},\qquad t\in\F_7 ,
 \]
-based at the point at infinity $\infty$.  The inversion
+with seven points each.  In the projective line
+$\PP^1(\F_{49})=\F_{49}\cup\{\infty\}$ put
+$\widehat H_t=H_t\cup\{\infty\}$.  The M\"obius inversion
 \[
   J(z)=-\frac1z
 \]
-maps $H_t$ to the conic
+acts on $\PP^1(\F_{49})$ and maps
 \[
-  C_t=J(H_t):\quad x^2+y^2=\frac{y}{t},
+  J(\widehat H_t)=C_t:\quad x^2+y^2=\frac{y}{t},
   \qquad t\in\F_7^\times .
 \]
-Every $C_t$ is an $8$-point conic through the pole $0$ (the point $\infty$ maps
-to $0$); the six of them form the finite \emph{ripple pencil}.  The correspondence
+Equivalently, on affine points, $J(H_t)=C_t\setminus\{0\}$: the missing point
+is exactly the pole $0=J(\infty)$.  Every $C_t$ is an $8$-point conic through
+$0$, and all six share the tangent line $y=0$ at $0$.  They form the finite
+\emph{ripple pencil}.  The correspondence
 \[
-  J(H_t)=C_t
+  J(\widehat H_t)=C_t
 \]
 is exact: the point path (the clue) and the ripple history are two readings of
 the same M\"obius map, as in the path--ripple duality of Paper~0.
+
+Three spaces must be kept apart: the affine plane $\mathbb A^2(\F_7)$ has
+$49$ points; the projective plane $\PP^2(\F_7)$ has $57$; the M\"obius line
+$\PP^1(\F_{49})$ has $50$.  The infinity in $\widehat H_t$ is the one of
+$\PP^1(\F_{49})$, not a line at infinity of $\PP^2(\F_7)$.
 
 Under the same dilation, the ripple parameter transforms by
 \[
@@ -849,7 +912,7 @@ the scaling acts on it by the inverse scalar $\lambda^{-1}$.
 \includegraphics[width=0.88\textwidth]{figures/fig-ripple.pdf}
 \caption{Left: the norm circles $S_r$ (level sets of $Q$), coloured by $r$;
 their scaling orbits are the two square classes.  Right: the ripple conics
-$C_t=J(H_t)$, all through the pole $0$; the grey points on the $x$-axis are the
+$C_t=J(\widehat H_t)$, all through the pole $0$ with common tangent $y=0$; the grey points on the $x$-axis are the
 clue line $H_0$.  In the Euclidean upper half-plane the $C_t$ are nested circles
 tangent at $0$; over $\F_7$ they form a pencil of six $8$-point conics through
 $0$.}
@@ -868,9 +931,11 @@ ripple conics $C_t$ & $x^2+y^2=y/t$ & $0$ & $t\mapsto\lambda^{-1}t$ & one\\
 norm circles $S_r$ & $x^2+y^2=r$ & none & $r\mapsto\lambda^2r$ & two square classes\\
 \bottomrule
 \end{tabular}
-\caption{The clue lines $H_t$ and the ripple conics $C_t=J(H_t)$ are exchanged by
-the inversion $J(z)=-1/z$; scaling acts linearly on $t$.  The norm circles
-$S_r$ are a different family, with the square-class obstruction.}
+\caption{The clue lines $H_t$ and the ripple conics $C_t=J(\widehat H_t)$ are exchanged by
+the inversion $J(z)=-1/z$; scaling acts by the inverse scalar on $t$.  The
+orbit counts are for nonzero $t$ and $r$; $t=0$ (the $x$-axis) and $r=0$ (the
+origin) are fixed.  The norm circles $S_r$ are a different family, with the
+square-class obstruction for scalar similarities.}
 \label{tab:ripple}
 \end{table}
 
@@ -881,45 +946,49 @@ $C_t$ are $8$-point conics through $0$, and their arrangement on the $7\times7$
 grid is a coloured partition, not a sequence of nested rings.  What is
 observable is the \emph{pencil} (all six through the pole), the \emph{partition}
 of the grid, and the scaling action; what is not observable is the Euclidean
-nesting.  The correspondence $J(H_t)=C_t$ and the scaling laws $t\mapsto\lambda^{-1}
-t$, $r\mapsto\lambda^2r$ hold exactly; they are algebraic statements, not
-visual ones.
+nesting.  The correspondence $J(\widehat H_t)=C_t$ and the scaling laws
+$t\mapsto\lambda^{-1}t$, $r\mapsto\lambda^2r$ hold exactly; they are algebraic
+statements, not visual ones.
 
 \subsection{The real picture and the finite picture}
 \label{subsec:real-finite}
 
 It is worth placing the finite ripple pencil next to the real one from
-Paper~0.  Over $\R$, with $J(z)=-1/z$ and $H_t=\{y=t\}$, the image is the
-circle
+Paper~0.  Over $\R$, with $J(z)=-1/z$ and the affine line
+$H_t=\{x+ti:x\in\R\}$, $t>0$, put $\widehat H_t=H_t\cup\{\infty\}$ in the
+Riemann sphere $\PP^1(\C)$.  The image is the circle
 \[
   C_t:\quad x^2+\Bigl(y-\frac1{2t}\Bigr)^2=\Bigl(\frac1{2t}\Bigr)^2,
   \qquad t>0 .
 \]
 All these circles are tangent to the real axis at $0$ and nested as $t$ varies;
-the parameter $t$ is continuous.  The clue lines $H_t$ and the ripple circles
-$C_t$ are exchanged by $J$:
+the parameter $t$ is continuous.  The compactified clue lines and the circles
+are exchanged by $J$:
 \[
-  J(H_t)=C_t .
+  J(\widehat H_t)=C_t .
 \]
-The dilation $D_\lambda$, $\lambda>0$, sends $t$ to $t/\lambda$; the family is a
-single orbit, and the nesting is visible.
+On affine points $J(H_t)=C_t\setminus\{0\}$; the missing point is the pole
+$0=J(\infty)$.  The dilation $D_\lambda$, $\lambda>0$, sends $t$ to
+$t/\lambda$; the family is a single orbit, and the nesting is visible.
 
 Over $\F_7$ the same equations produce the six conics
 \[
   C_t:\quad x^2+y^2=\frac{y}{t},\qquad t\in\F_7^\times .
 \]
-They all pass through the pole $0$, and they form a \emph{pencil}, not a nested
-sequence.  The correspondence $J(H_t)=C_t$ and the scaling law
-$t\mapsto t/\lambda$ still hold; the six form one orbit.  What is lost is the
-order: there is no inside/outside, no continuous parameter, no nesting.
+They all pass through the pole $0$ with the common tangent $y=0$, and they form
+a \emph{pencil}, not a nested sequence.  The correspondence
+$J(\widehat H_t)=C_t$ and the scaling law $t\mapsto t/\lambda$ still hold; the
+six form one orbit.  What is lost is the order: there is no inside/outside, no
+continuous parameter, no nesting.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.92\textwidth]{figures/fig-ripple-compare.pdf}
 \caption{The ripple pencil of $J(z)=-1/z$ over $\R$ and over $\F_7$.  Left: the
-clue lines $H_t$ (dashed) map to nested circles tangent at $0$.  Right: the same
-equations over $\F_7$ give six $8$-point conics through $0$; the family is a
-pencil, not a nested sequence.}
+compactified clue lines $\widehat H_t$ (dashed affine part $H_t$ plus $\infty$)
+map to nested circles tangent at $0$; the affine part misses the pole $0$.
+Right: the same equations over $\F_7$ give six $8$-point conics through $0$,
+with common tangent $y=0$; the family is a pencil, not a nested sequence.}
 \label{fig:compare}
 \end{figure}
 
@@ -931,11 +1000,11 @@ pencil, not a nested sequence.}
  & over $\R$ & over $\F_7$\\
 \midrule
 parameter & $t>0$ continuous & $t\in\F_7^\times$ (six values)\\
-$C_t$ & nested circles tangent at $0$ & $8$-point conics through $0$\\
+$C_t$ & nested circles tangent at $0$ & $8$-point conics through $0$, common tangent $y=0$\\
 ordering & nesting by $t$ & no order; pencil\\
 scaling & $t\mapsto t/\lambda$, $\lambda>0$ & $t\mapsto t/\lambda$, $\lambda\in\F_7^\times$\\
 orbits & one & one\\
-$J(H_t)=C_t$ & yes & yes\\
+$J(\widehat H_t)=C_t$ & yes & yes\\
 visual & nested rings & coloured pencil\\
 \bottomrule
 \end{tabular}
@@ -974,115 +1043,221 @@ the angle group's addition are the same operation.
 \section{Euclidean angle axioms and the finite angle group}
 \label{sec:euclid}
 
-The phrase ``angle domain'' has two readings.  In Euclidean geometry it usually
-means the structure of angles: congruence, addition, order, and measure.  It can
-also mean an angular region (a sector) between two rays.  The finite model has a
-clean analogue of the first reading and only a combinatorial analogue of the
-second; this section compares the first.
+There are two different finite analogues of a Euclidean angle, and they must be
+kept apart:
+\begin{itemize}
+  \item the \emph{unit-vector angle} between two points of the conic
+        $C:x^2+y^2=1$, with values in $G=\Z/8$;
+  \item the \emph{line-direction angle} between two lines through the origin,
+        with values in $D=\F_{49}^\times/\F_7^\times$, also isomorphic to
+        $\Z/8$.
+\end{itemize}
+The first is a point-on-conic coordinate; the second is a direction ratio.  The
+unit circle meets only four of the eight lines through the origin, each in a
+pair of antipodal points, so the unit-vector angle does not cover all
+directions.  That is not a failure of line-direction angles; it is a statement
+about the unit-vector model.  This section treats the unit-vector model first,
+then the line-direction model.
 
 \subsection{The Euclidean angle structure}
 
-Three groups of axioms are relevant.
-
+The Euclidean angle group is $\R/2\pi\Z$ for oriented angles.  It has:
 \begin{enumerate}
 \item \emph{Congruence.}  Angle congruence is an equivalence relation.  Given an
 angle and a ray, there is a unique angle on a prescribed side of the ray
-congruent to the given one (Hilbert's copying axiom); the SAS criterion and the
-rest of Euclidean congruence follow.
-\item \emph{Protractor.}  Angles have a real-valued measure
-$\mu(\angle AOB)\in[0,\pi]$ (or in $\mathbb R/2\pi\mathbb Z$ for oriented
-angles), additive when a ray lies inside the angle.  The measure is invariant
-under isometries.
-\item \emph{Order and continuity.}  Rays from a point in a half-plane are
-totally ordered by betweenness, so unoriented angle measures in $[0,\pi]$ can be
-compared.  The Archimedean
-(continuity) axiom makes the measure real-valued and allows an angle to be
-divided into $n$ equal parts for every $n$.
+congruent to the given one (Hilbert's copying axiom); SAS and the rest of
+Euclidean congruence follow.
+\item \emph{Protractor.}  Angles have a real-valued additive measure,
+invariant under isometries.
+\item \emph{Cyclic order, not total order.}  The circle has a cyclic order,
+preserved by rotations and reversed by reflections.  There is no total order on
+$\R/2\pi\Z$ compatible with addition: the circle is not a chain.  A total order
+on the universal cover $\R$ is a different structure; it is not an order on the
+angle group itself.
+\item \emph{Archimedean property and completeness.}  These are separate.  The
+Archimedean property rules out infinitesimal angles; completeness (the
+Dedekind/Cauchy property of $\R$) makes the angle line a continuum.  Together
+they give the real-valued protractor.
+\item \emph{Divisibility.}  For every $n\ge1$ and every angle, $nh=k$ has a
+solution; this is the additive group of $\R$, not a consequence of order alone.
 \end{enumerate}
 
-The standard theorems are then: supplements and complements are unique; a right
+The standard theorems are: supplements and complements are unique; a right
 angle is congruent to its supplement; vertical angles are equal; every angle has
 a unique bisector; the angles of a triangle sum to $\pi$ (equivalent to the
-parallel postulate); the exterior-angle theorem; the isosceles base-angle
-theorem; the inscribed-angle theorem; Thales' theorem; and the AA criterion for
-similarity.
+parallel postulate in Euclidean geometry); the exterior-angle theorem; the
+isosceles base-angle theorem; the inscribed-angle theorem; Thales' theorem; and
+the AA criterion for similarity.
 
-In group language, oriented angles form $\mathbb R/2\pi\mathbb Z$; the rotation
-group $\mathrm{SO}(2)$ acts regularly on the circle, and the angle from a base
-ray to a target ray is the group element taking one to the other.
+The finite affine plane also satisfies the parallel postulate: through a point
+not on a line there is a unique parallel.  The failure of a Euclidean-style
+triangle angle sum in the unit-vector model below is therefore \emph{not} a
+failure of the parallel postulate; it is a failure of having a Euclidean angle
+measure at arbitrary triangle vertices in that model.
 
-\subsection{The finite analogue}
+In group language, oriented angles form $\R/2\pi\Z$; the rotation group
+$\mathrm{SO}(2)$ acts regularly on the circle, and the angle from a base ray to
+a target ray is the group element taking one to the other.
+
+\subsection{The unit-vector model}
 
 On the conic $C\cong\mathbb P^1(\F_7)$, the norm-one group $G=\Z/8$ acts
 regularly: for $P,Q\in C$ there is a unique $h\in\Z/8$ with $Q=\alpha^h P$.
-This $h$ is the finite angle from $P$ to $Q$, and the map $h\mapsto\alpha^h$ is
-the finite protractor.  Addition of angles is addition in $\Z/8$; the right
-angle is $2$ (because $4\cdot2=8=0$), the straight angle is $4$, and the full
-angle is $0$.  Figure~\ref{fig:protractor} shows the two protractors side by side.
+This $h$ is the finite unit-vector angle from $P$ to $Q$, and the map
+$h\mapsto\alpha^h$ is the finite protractor.  Addition of angles is addition in
+$\Z/8$; the right angle is $2$ (because $4\cdot2=8=0$), the straight angle is
+$4$, and the full angle is $0$.  Figure~\ref{fig:protractor} shows the two
+protractors side by side.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{figures/fig-protractor.pdf}
-\caption{The continuous protractor $\mathbb R/2\pi\mathbb Z$ and the finite
-protractor $\Z/8$.  On the right the eight points of $C$ are the eight angles;
-the orange arc $0\to2$ is the right angle, passing through the angle $1$.}
+\caption{The continuous protractor $\R/2\pi\Z$ and the finite protractor
+$\Z/8$.  On the right the eight points of $C$ are the eight angles; the orange
+arc $0\to2$ is the right angle, passing through the angle $1$.}
 \label{fig:protractor}
 \end{figure}
 
-Table~\ref{tab:euclid-finite} records which Euclidean properties survive.
+Table~\ref{tab:euclid-finite} records the group-algebraic properties, and
+Table~\ref{tab:euclid-geometry} the order, continuity and line-based ones.
 
 \begin{table}[htbp]
 \centering
 \small
-\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.17\textwidth}@{}}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.24\textwidth}@{}}
 \toprule
-Euclidean & finite $\Z/8$ & verdict\\
+Euclidean & finite unit-vector model & verdict\\
 \midrule
-angle group $\mathbb R/2\pi\Z$ & $\Z/8$ on $C$ & different group\\
+angle group $\R/2\pi\Z$ & $\Z/8$ on $C$ & different cyclic groups\\
 protractor additivity & $k+l\bmod 8$ & holds\\
 right angle $\pi/2$; four right $=2\pi$ & $2$; $4\cdot2=8=0$ & holds\\
-supplement $\alpha+\beta=\pi$, unique & $k+l=4$; $l=4-k$ & holds\\
-complement $\alpha+\beta=\pi/2$, unique & $k+l=2$; $l=2-k$ & holds\\
+supplement/complement & $k+l=4$ / $k+l=2$ & holds\\
 congruence is an equivalence & equality in $\Z/8$ & holds\\
-total order and betweenness & cyclic order only & fails\\
 angle copying & translation $k\mapsto k+h$ & holds\\
-unique bisector & $2h=k$: $0$ or $2$ solutions & fails in general\\
+unique bisector & $2h=k$: $0$ or $2$ solutions & fails for odd $k$ (e.g.\ $k=1$)\\
 $n$-section, all $n$ & $nh=k$ iff $\gcd(n,8)\mid k$ & fails in general\\
-vertical angles equal & no angle between lines & not defined\\
-triangle angle sum $\pi$ & no triangle angle measure & not defined\\
-inscribed angle $=$ half arc & $2$ not invertible & only $2$-to-$1$\\
-Thales (semicircle) & $(A-P)\cdot(B-P)=0$ & holds\\
-similarity and AA & no metric or angle & fails\\
-continuous measure & $\Z/8$-valued measure & fails\\
+Thales (semicircle) & $(A-P)\cdot(B-P)=0$ & holds for $P\ne A,B$\\
+inscribed angle $=$ half arc & $2h=\text{arc}$, $2$ not invertible & only $2$-to-$1$ here\\
 \bottomrule
 \end{tabularx}
-\caption{Euclidean angle axioms and theorems versus the finite angle group
-$\Z/8$.  The first row records the same algebraic shape (a regular abelian
-group action) with a different group.  ``Holds'' means the algebraic statement
-survives; ``fails'' means the Euclidean proof uses order, continuity, or
-division, which $\Z/8$ lacks.}
+\caption{Group-algebraic angle properties.  ``Holds'' means a definition and
+proof; ``fails'' means a counterexample is given.  The inscribed-angle row is
+the unit-vector reading; the line-direction reading is exact and appears below.}
 \label{tab:euclid-finite}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
+\toprule
+Euclidean & finite unit-vector model & verdict\\
+\midrule
+cyclic order & cyclic order & both; shared\\
+compatible total order & none & neither has one\\
+Archimedean & no order/continuity & Euclidean only\\
+completeness & no order/continuity & Euclidean only\\
+continuous measure & $\Z/8$-valued & no continuous measure\\
+vertical angles equal & no angle between lines & not defined in this model\\
+triangle angle sum $\pi$ & no angle at arbitrary vertices & not defined in this model; parallel postulate holds\\
+similarity and AA & similarity group $\mathrm{GO}(Q)$ exists & AA not addressed\\
+\bottomrule
+\end{tabularx}
+\caption{Order, continuity and line-based properties.  ``Not defined in this
+model'' is not a counterexample; it means the unit-vector angle has no such
+object.  The finite affine plane satisfies the parallel postulate.}
+\label{tab:euclid-geometry}
+\end{table}
+
+\subsection{The line-direction model}
+
+The unit-vector model is not the only finite angle; the line-direction ratio is
+in the spirit of Wildberger's quadrance/spread \cite{Wildberger}.  Let
+\[
+  D=\F_{49}^\times/\F_7^\times .
+\]
+Since $|\F_{49}^\times|=48$ and $|\F_7^\times|=6$, $|D|=8$.  The map
+\[
+  \rho:D\longrightarrow G,\qquad \rho([z])=\frac z{\bar z},
+\]
+is an isomorphism: its kernel is $\F_7^\times$ (the condition $z=\bar z$), and
+its image lies in the norm-one group $G$; both groups have order $8$.  A line
+through the origin has a direction in $D$.  The eight points of $C$ map to four
+lines (the antipodal pairs), while the other four directions are isotropic
+($x^2+y^2=0$) and contain no $\F_7$-point of $C$.
+
+For distinct $A,B,P\in C$,
+\begin{equation}\label{eq:line-inscribed}
+  \boxed{\quad
+  \rho\!\left(\frac{B-P}{A-P}\right)=\frac BA
+  \quad}
+\end{equation}
+and the left side is independent of $P$.  The proof uses $\bar B=1/B$ and
+$\bar P=1/P$:
+\[
+  \overline{B-P}=\bar B-\bar P=\frac1B-\frac1P
+  =\frac{P-B}{BP}=-\frac{B-P}{BP},
+\]
+so
+\[
+  \rho\!\left(\frac{B-P}{A-P}\right)
+  =\frac{(B-P)/(A-P)}{\overline{(B-P)/(A-P)}}
+  =\frac{B-P}{A-P}\cdot\frac{\overline{A-P}}{\overline{B-P}}
+  =\frac{B-P}{A-P}\cdot\frac{-(A-P)/(AP)}{-(B-P)/(BP)}
+  =\frac{BP}{AP}=\frac BA .
+\]
+This is the exact line-direction inscribed-angle relation; it does not require
+a half-angle in $\Z/8$.  It is checked for all $336$ ordered triples in
+\texttt{verify.py}.
+
+The line-direction angle between two lines with directions $d_1,d_2\in D$ is
+$d_1/d_2\in G$.  Vertical angles are equal (the two pairs have the same ratio).
+For a triangle with side directions $d_1,d_2,d_3$, the product of the three
+turning ratios is $1$, so the oriented turning sum is $0$ (the full turn); this
+is the exterior-angle statement, not the interior-angle sum $\pi$.  The
+interior sum is a different statement and is not implied by the group law.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & unit-vector angle & line-direction angle\\
+\midrule
+values & $G=\Z/8$ & $D\cong G$\\
+domain & points of $C$ & lines through $0$\\
+coverage & $4$ lines ($8$ points) & all $8$ directions\\
+inscribed angle & $2h=\text{arc}$ ($2$-to-$1$) & $\rho((B-P)/(A-P))=B/A$\\
+vertical angles & not defined & equal\\
+\bottomrule
+\end{tabular}
+\caption{The two finite angles.  The unit-vector angle is a point-on-conic
+coordinate; the line-direction angle is a direction ratio.  Neither is a
+failure of the other.}
+\label{tab:angle-types}
 \end{table}
 
 \subsection{Three concrete comparisons}
 
 \begin{example}[Bisection]\label{ex:bisection}
-In Euclidean geometry every angle $0<\alpha<\pi$ has a unique bisector.  In
-$\Z/8$ the bisector equation is $2h=k$.  If $k$ is even there are two solutions
-$h$ and $h+4$, the two orientations of the same bisector line; the finite group
-has no order with which to choose one.  If $k$ is odd there is no solution.  For example, the right angle $k=2$ has $h=1,5$,
-while $k=1$ has no bisector.  This is exactly the failure of divisibility by
-$2$.
+In Euclidean geometry every angle $0<\alpha<\pi$ has a unique bisector.  In the
+unit-vector group $\Z/8$ the bisector equation is $2h=k$.  If $k$ is even there
+are two solutions $h$ and $h+4$, the two orientations of the same bisector line;
+the finite group has no order with which to choose one.  If $k$ is odd there is
+no solution.  For example, the right angle $k=2$ has $h=1,5$, while $k=1$ has no
+bisector.  This is the failure of divisibility by $2$.
 \end{example}
 
 \begin{proposition}[Finite Thales]\label{prop:finite-thales}
-Let $A,B\in C$ be antipodal, so $B=-A$, and let $P\in C$.  Then
+Let $A,B\in C$ be antipodal, so $B=-A$, and let $P\in C$ with $P\ne A,B$.  Then
 \[
   (A-P)\cdot(B-P)=A\cdot B-A\cdot P-P\cdot B+P\cdot P
   =-1-A\cdot P+A\cdot P+1=0 .
 \]
 Thus the vectors $PA$ and $PB$ are orthogonal with respect to the standard dot
 product on $\F_7^2$: the angle in a semicircle is right, in the bilinear sense.
+The algebraic identity also holds for $P=A$ or $P=B$, but then one of the
+vectors $PA,PB$ is zero, so it is not an angle statement.
 \end{proposition}
 
 \begin{proof}
@@ -1091,31 +1266,37 @@ and $P\cdot B=P\cdot(-A)=-A\cdot P$.  The sum is zero.
 \end{proof}
 
 \begin{remark}[Triangle angle sum and inscribed angle]
-The Euclidean triangle angle sum is $\pi$, and the inscribed angle is half the
-subtended arc.  On $C$ the arc between two points is an element of $\Z/8$;
-halving it requires solving $2h=\text{arc}$.  When the arc is odd there is no
-solution, and when it is even there are two.  Thus the inscribed-angle theorem
-has only a $2$-to-$1$ shadow in $\Z/8$.  A triangle in the finite affine plane
-has no Euclidean angle measure at its vertices: the angle group $\Z/8$ is
-attached to the conic, not to arbitrary lines.  The triangle angle sum is
-therefore not a theorem of this finite model; its Euclidean proof uses the order
-and the parallel postulate, neither of which is present.
+The unit-vector model has no angle at an arbitrary vertex of a finite triangle:
+the group $\Z/8$ is attached to the conic, not to arbitrary lines.  The
+line-direction model does define the turning angles at a triangle; their
+oriented sum is $0$ (the full turn), not the Euclidean interior sum $\pi$.  The
+finite affine plane satisfies the parallel postulate, so the Euclidean triangle
+angle sum is not a counterexample to it; the two statements are about different
+angle structures.  Likewise, the unit-vector half-arc equation $2h=\text{arc}$
+is only $2$-to-$1$, while the line-direction relation
+\eqref{eq:line-inscribed} is exact and requires no halving.
 \end{remark}
 
 \subsection{What the comparison says}
 
-The common algebraic skeleton is the angle group: an abelian group acting
+The common algebraic skeleton is the angle group: a cyclic group acting
 regularly on the circle or conic, with the angle as the group element.
-Euclidean geometry adds three things that $\Z/8$ lacks: a total order compatible
-with addition, an Archimedean continuous measure, and divisibility (the ability
-to solve $nh=k$ for every $n$).
+Euclidean geometry adds an Archimedean continuous measure, completeness, and
+divisibility.  It does \emph{not} add a compatible total order: neither the
+Euclidean circle nor the finite one has one; both have a cyclic order.  The
+finite affine plane also satisfies the parallel postulate.  The difference is
+therefore continuity and divisibility, not total order and not the existence of
+parallels.
 
 The theorems that depend only on the group law survive: addition, supplements,
 complements, right and straight angles, copying, and finite Thales.  The
-theorems that use order, continuity, or division fail, or have only a $2$-to-$1$
-shadow: bisection, $n$-section, the triangle angle sum, vertical angles, and
-similarity.  This is the same pattern as the $\mathbb R/\F_7$ trichotomy: the
-algebraic classification survives; the continuous invariants do not.
+theorems that need order, continuity, or division fail or are not defined:
+bisection, $n$-section, the unit-vector triangle angle sum, and continuous
+measure.  The line-direction model supplies an exact angle for arbitrary lines
+and the exact inscribed relation \eqref{eq:line-inscribed}; the unit-vector
+model supplies the point-on-conic coordinate.  This is the same pattern as the
+$\R/\F_7$ trichotomy: the algebraic classification survives; the continuous
+invariants do not.
 
 \section{Stereographic and half-angle coordinates}
 \label{sec:stereo}
@@ -1176,34 +1357,100 @@ and in both cases the sum over the cycle is $0$:
   \sum_{k=0}^{7}\Delta f(k)=f(8)-f(0)=0 .
 \]
 This is the discrete fundamental theorem of calculus: summation and difference
-are inverse up to the value at $0$.  There is no limit, no derivative as a
-limit, and no mean value theorem; the calculus here is finite and algebraic.
-A systematic treatment of $\Delta$, summation, Hasse derivatives and residues
-on $\mathbb P^1(\F_7)$ is the next note.
+are inverse up to the value at $0$.  Conversely, for $g:\Z/8\to\F_7$, the
+equation $\Delta f=g$ has a solution if and only if
+\[
+  \sum_{k=0}^{7} g(k)=0 .
+\]
+The solutions are then $f+c$ for a constant $c$: the kernel of $\Delta$ is the
+constants, and its image is the sum-zero functions.  This is the periodic
+Fredholm alternative; it is the obstruction to a periodic antiderivative.
 
-\section{The harmonic layer: characters of \texorpdfstring{$\Z/8$}{Z/8}}
+There is no limit, no derivative as a limit, and no mean value theorem; the
+calculus here is finite and algebraic.  A caution about function spaces: a
+polynomial \emph{function} on $\F_7$ is not the same object as a polynomial.
+The polynomial $x^7-x$ vanishes at every point of $\F_7$, but its formal
+derivative $7x^6-1=-1$ is not zero.  The derivation lives on polynomials and
+rational functions, not on the algebra of $\F_7$-valued functions; to descend it
+to point functions one must quotient by $x^7-x$, and the derivative does not
+respect that quotient.  This is why the discrete calculus here is formal and
+algebraic, not a calculus of arbitrary point functions.
+
+The next section gives the finite-field Fourier layer.  A systematic treatment
+of $\Delta$, summation, Hasse derivatives and residues on
+$\mathbb P^1(\F_7)$ is the next note.
+
+\section{The harmonic layers}
 \label{sec:fourier}
+
+The algebraic trigonometry of the previous sections takes values in $\F_7$.
+There are two harmonic layers above it, and they must not be conflated: a
+finite-field layer with values in $\F_{49}$, and a complex layer with values in
+$\C$.  The first is the algebraic bridge; the second is a unitary
+representation.
+
+\subsection{The finite-field layer}
+
+Let
+\[
+  \chi_j(k)=\alpha^{jk}\in\F_{49},\qquad j,k\in\Z/8 .
+\]
+These are the finite-field characters of $\Z/8$.  Orthogonality reads
+\[
+  \sum_{k=0}^{7}\chi_j(k)\chi_{-l}(k)=8\,\delta_{jl}.
+\]
+The field $\F_{49}$ has characteristic $7$, so $8=1\ne0$; the sum is $1$ for
+$j=l$ and $0$ otherwise.  For a function $f:\Z/8\to\F_{49}$ define
+\[
+  \widehat f(j)=\sum_{k=0}^{7} f(k)\chi_{-j}(k),
+  \qquad
+  f(k)=8^{-1}\sum_{j=0}^{7}\widehat f(j)\chi_j(k),
+\]
+with $8^{-1}=1$.  The Fourier matrix $(\chi_j(k))_{j,k}$ is invertible; the
+transform is an isomorphism of the $8$-dimensional space of functions.
+
+The difference operator acts on the characters by
+\[
+  \Delta\chi_j=(\alpha^j-1)\chi_j .
+\]
+Thus the characters are the eigenvectors of $\Delta$, with eigenvalues
+$\alpha^j-1$.  The eigenvalues are distinct because $\alpha^j$ are distinct;
+the Fourier transform diagonalizes $\Delta$.  The constants are $j=0$ with
+eigenvalue $0$, and the image of $\Delta$ is the sum-zero functions, in
+agreement with the solvability condition of \S\ref{sec:waveforms}.
+
+The trigonometric functions are the real and imaginary coordinates in this
+basis:
+\[
+  \cos k=\frac{\chi_1(k)+\chi_{-1}(k)}2,
+  \qquad
+  \sin k=\frac{\chi_1(k)-\chi_{-1}(k)}{2\ii}.
+\]
+Their Fourier transforms have support on $j=\pm1$.  In this sense the
+finite-field Fourier layer is the algebraic bridge between the $\cos/\sin$
+tables and the difference operator: the same $\alpha$ produces the point
+coordinates, the characters, and the spectrum.
+
+\subsection{The complex layer}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{figures/fig-fourier.pdf}
-\caption{The harmonic layer.  Left: the eight eighth roots of unity
+\caption{The complex harmonic layer.  Left: the eight eighth roots of unity
 $\zeta_8^j$.  Right: the character matrix $\chi_j(k)=\zeta_8^{jk}$; the cell
-$(j,k)$ has the colour of $\zeta_8^{jk}$.  The colours are a legend shared by
-the two panels.}
+$(j,k)$ has the colour of $\zeta_8^{jk}$.}
 \label{fig:fourier}
 \end{figure}
 
-The algebraic trigonometry of the previous sections takes values in $\F_7$.  A
-second, harmonic layer takes values in $\mathbb C$.  Let
+A second harmonic layer takes values in $\C$.  Let
 \[
   \zeta_8=e^{2\pi\ii/8}
 \]
-and define the characters of $\Z/8$ by
+and define the complex characters of $\Z/8$ by
 \[
   \chi_j(k)=\zeta_8^{jk},\qquad j,k\in\Z/8 .
 \]
-For a function $f:\Z/8\to\mathbb C$, the finite Fourier transform is
+For a function $f:\Z/8\to\C$, the finite Fourier transform is
 \[
   \widehat f(j)=\sum_{k=0}^{7} f(k)\,\zeta_8^{-jk},
 \]
@@ -1216,19 +1463,29 @@ and Parseval
   \sum_{k=0}^{7}|f(k)|^2=\frac18\sum_{j=0}^{7}|\widehat f(j)|^2 .
 \]
 The transform diagonalizes translations: if $(\tau_a f)(k)=f(k-a)$, then
-$\widehat{\tau_a f}(j)=\zeta_8^{-ja}\widehat f(j)$.  For the general theory of Fourier analysis on finite groups see \cite{FTN}.
+$\widehat{\tau_a f}(j)=\zeta_8^{-ja}\widehat f(j)$.  For the general theory of
+Fourier analysis on finite groups see \cite{FTN}.
 
-It is important not to identify the two layers.  The functions
-$\cos k,\sin k\in\F_7$ are the coordinates of $\alpha^k$ on the conic; the
-characters $\chi_j(k)\in\mathbb C$ are the Fourier basis of the angle group.
-They share the index group $\Z/8$, but they take values in different fields and
-answer different questions.  The bridge between the additive characters of
-$\F_7$ and the multiplicative characters of $\F_7^\times$ is the Gauss sum
+\subsection{The two layers}
+
+The finite-field characters $\chi_j^{\F}(k)=\alpha^{jk}\in\F_{49}$ and the
+complex characters $\chi_j^{\C}(k)=\zeta_8^{jk}\in\C$ share the index group
+$\Z/8$ and the same orthogonality pattern, but they take values in different
+fields.  The finite-field layer is algebraic: it diagonalizes $\Delta$, and the
+$\cos/\sin$ coordinates are its $\pm1$ modes.  The complex layer is unitary: it
+gives the Hilbert-space transform and Parseval.  Neither is a substitute for the
+other.
+
+The bridge between the additive characters of $\F_7$ and the multiplicative
+characters of $\F_7^\times$ is the Gauss sum
 \[
   G(\chi)=\sum_{x\in\F_7}\chi(x)\,\zeta_7^{x},
 \]
 which is the finite analogue of the Gamma integral; it will be treated in the
-next note.
+next note.  A further bridge between finite point functions, rational functions
+on $\mathbb P^1(\F_7)$, and functions on local fields is the subject of the
+discrete-calculus note; the polynomial $x^7-x$ of \S\ref{sec:waveforms} is the
+basic warning that these are different function spaces.
 
 \section{What is not claimed, and what comes next}
 \label{sec:boundary}
@@ -1242,29 +1499,52 @@ This note is deliberately small.  It does \emph{not} claim:
         algebraic;
   \item that the conic or Pascal's theorem alone gives analysis: the conic gives
         the geometry and the group law; the analysis comes from the derivation,
-        difference, representation and cohomological structures built on top.
+        difference, representation and cohomological structures built on top;
+  \item that the finite-field Fourier layer and the complex Fourier layer are
+        the same representation: they share the index group but take values in
+        different fields.
 \end{itemize}
 
+The finite-field Fourier layer of Section~\ref{sec:fourier} is now included.
 The natural next steps are:
 \begin{enumerate}
   \item discrete calculus on $\mathbb P^1(\F_7)$: $\Delta$, summation, Hasse
-        derivatives, differential forms, residues and the residue theorem;
+        derivatives, differential forms, residues and the residue theorem,
+        together with the function-space distinctions (the polynomial
+        $x^7-x$ versus the function it defines);
   \item Gauss sums and the bridge between the additive and multiplicative
         characters;
   \item the harmonic analysis of functions on $\mathrm{PGL}_2(\F_7)$ and the
-        Bruhat--Tits tree \cite{Serre}, as a non-Archimedean analogue of the hyperbolic
-        analysis of Paper~0/Paper~I;
+        Bruhat--Tits tree \cite{Serre}, as a non-Archimedean analogue of the
+        hyperbolic analysis of Paper~\cite{Paper0}/Paper~\cite{Paper1};
   \item the characteristic-$7$ Magnus expansion and the group algebra
         $\F_7[\mathrm{PGL}_2(\F_7)]$, as the finite analogue of the series
-        pillar of Paper~I.
+        pillar of Paper~\cite{Paper1}.
 \end{enumerate}
 
-\begin{thebibliography}{9}
+\paragraph{Scope.}
+Sections~1--4 and 7--10 form the trigonometry and difference core;
+Sections~5--6 (transformations, centres, arcs, ripple) are a geometric
+excursion.  They can be split into a second paper once the foundations settle;
+the present revision keeps them together so that the cross-references remain
+explicit.
+
+\begin{thebibliography}{99}
 \bibitem{Serre} J.-P.~Serre, \emph{Trees}, Springer, 1980.
 \bibitem{FTN} A.~Terras, \emph{Fourier Analysis on Finite Groups and
 Applications}, Cambridge University Press, 1999.
 \bibitem{Lidl} R.~Lidl and H.~Niederreiter, \emph{Finite Fields},
 Cambridge University Press, 1997.
+\bibitem{FFTrig} M.~Saaltink, \emph{Generalized trigonometry and Chebyshev
+functions in finite fields}, Finite Fields Appl. \textbf{86} (2023), 102143,
+\url{https://doi.org/10.1016/j.ffa.2022.102143}.
+\bibitem{Wildberger} N.~J.~Wildberger, \emph{The ancient Greeks present:
+Rational trigonometry}, arXiv:0806.3481 (2008),
+\url{https://arxiv.org/abs/0806.3481}.
+\bibitem{Paper0} M.~Yuan, \emph{Arithmetic Expression Geometry 0: Arithmetic
+Expression Spaces}, 2026, \url{https://github.com/mountain/aeg-paper}.
+\bibitem{Paper1} M.~Yuan, \emph{Arithmetic Expression Geometry I: Foundations},
+2026, \url{https://github.com/mountain/aeg-paper}.
 \end{thebibliography}
 
 \end{document}

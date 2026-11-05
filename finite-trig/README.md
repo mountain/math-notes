@@ -36,11 +36,13 @@ periodicity identities, and draws
   unit-circle data (centre, norm-one relation, angle group around the old
   centre) do not;
 - movable circles: the relative relation $Q(P-O)=r$ is translation-equivariant;
-  the circle family is homogeneous under similarities, with square-class
-  radius orbits over $\mathbb F_7$;
-- scaling and the ripple pencil: $J(H_t)=C_t$ exchanges clue lines and ripple
-  conics; scaling acts transitively on the ripple family ($t\mapsto t/\lambda$)
-  but only by square classes on the norm circles ($r\mapsto\lambda^2r$);
+  the full similarity group $\mathrm{GO}(Q)$ is transitive on the nonzero
+  circles, while the scalar similarities $\mathbb F_7^\times\mathrm O(Q)$
+  have the two square-class orbits;
+- scaling and the ripple pencil: $J(\widehat H_t)=C_t$ exchanges compactified
+  clue lines and ripple conics (the affine image misses the pole $0$); scaling
+  acts transitively on the ripple family ($t\mapsto t/\lambda$) but only by
+  square classes on the norm circles ($r\mapsto\lambda^2r$);
 - the real/finite comparison: over $\mathbb R$ the ripple family is nested
   circles tangent at $0$; over $\mathbb F_7$ it is a pencil of conics through
   $0$; the algebra and the scaling orbit survive, the nesting does not;
@@ -48,22 +50,25 @@ periodicity identities, and draws
 - the angle group $\mathbb Z/8$ with the $+1$ cycle and the doubling map;
 - the discrete waveforms $\cos k$ and $\sin k$ over two periods;
 - the stereographic (half-angle) coordinate $t=\sin k/(1+\cos k)$;
-- the harmonic layer: the eighth roots of unity and the character matrix
-  $\chi_j(k)=\zeta_8^{jk}$;
-- a comparison with the Euclidean angle axioms: congruence, protractor,
-  order/continuity, bisection, finite Thales, triangle angle sum.
+- the harmonic layers: the finite-field characters $\chi_j(k)=\alpha^{jk}$
+  in $\mathbb F_{49}$ (with $\Delta\chi_j=(\alpha^j-1)\chi_j$), and the
+  complex character matrix $\chi_j(k)=\zeta_8^{jk}$;
+- a comparison with the Euclidean angle axioms, separating the unit-vector
+  angle in $\mathbb Z/8$ from the line-direction angle
+  $D=\mathbb F_{49}^\times/\mathbb F_7^\times$; the exact line-direction
+  inscribed relation holds for all 336 triples.
 
 ## Files
 
 | file | content |
 |---|---|
-| `finite-trig.tex` | the note (article, twelve figures) |
+| `finite-trig.tex` | the note (article, 29 pages, twelve figures) |
 | `figures/fig-norm.tex` | the norm fibres $x^2+y^2=a$ in $\mathbb F_7^2$ |
 | `figures/fig-circle.tex` | the eight points of $x^2+y^2=1$ |
 | `figures/fig-center.tex` | the centre and the four antipodal pairs |
 | `figures/fig-arcs.tex` | arc steps and their reachability components |
 | `figures/fig-translate.tex` | the circle translated by $(0,1)$ |
-| `figures/fig-ripple.tex` | scaling circles $S_r$ versus the ripple pencil $C_t=J(H_t)$ |
+| `figures/fig-ripple.tex` | scaling circles $S_r$ versus the ripple pencil $C_t=J(\widehat H_t)$ |
 | `figures/fig-ripple-compare.tex` | the ripple pencil over $\mathbb R$ and over $\mathbb F_7$ |
 | `figures/fig-angle-cycle.tex` | $\mathbb Z/8$: $+1$ cycle and doubling |
 | `figures/fig-waveforms.tex` | $\cos k$, $\sin k$ over two periods |
@@ -87,18 +92,24 @@ This writes `finite-trig.pdf`, the figure PDFs, and PNG previews.
 python3 verify.py
 ```
 
-checks $\alpha^4=-1$, $\alpha^8=1$, the conic equation, periodicity,
-Pythagoras, the addition formulas (64 cases), the doubling formulas (8 cases),
-and the stereographic formulas.
+checks the basic identities, the conic and its norm fibres, the polarity
+counts, the arc components, the translation experiment, the ripple conics and
+the compactified inversion, the similarity groups and their orbits
+($|\mathrm O(Q)|=16$, $|\mathrm{GO}(Q)|=96$, $|\mathbb F_7^\times\mathrm O(Q)|=48$;
+orbits $6/2/1$), the counterexample $A$ with $A^{T}A=3I$, the 336
+line-direction triples, finite Thales, and the finite-field Fourier
+orthogonality, eigenvalues and inversion.  The script exits with code $0$ only
+if every check passes.
 
 ## Status and next steps
 
-This is a first, deliberately small installment.  It is **algebraic/finite**:
-there are no limits, no continuity, and no real analysis.  The natural next
-notes are:
+This is a deliberately small installment.  It is **algebraic/finite**: there
+are no limits, no continuity, and no real analysis.  The finite-field Fourier
+layer of Section 10 is now included; the natural next notes are:
 
 1. discrete calculus on $\mathbb P^1(\mathbb F_7)$: $\Delta$, summation,
-   Hasse derivatives, differential forms, residues;
+   Hasse derivatives, differential forms, residues, and the function-space
+   distinctions (the polynomial $x^7-x$ versus the function it defines);
 2. Gauss sums and the additive/multiplicative character bridge;
 3. harmonic analysis on $\mathrm{PGL}_2(\mathbb F_7)$ and the Bruhat--Tits
    tree;
