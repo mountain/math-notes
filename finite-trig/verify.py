@@ -364,6 +364,14 @@ for A in T:
         thal_ok = thal_ok and dot(sub(A, Pp), sub(B, Pp)) == 0
 check("finite Thales with P != A,B", thal_ok and thal == 8 * 6)
 
+check("bisection: 2h=1 unsolvable; 2h=2 has two solutions",
+      all((2 * h) % 8 != 1 for h in range(8))
+      and [h for h in range(8) if (2 * h) % 8 == 2] == [1, 5])
+check("n-section: 2h=k is solvable exactly for even k; 3h=k always",
+      all((any((2 * h) % 8 == k for h in range(8))) == (k % 2 == 0)
+          for k in range(8))
+      and all(any((3 * h) % 8 == k for h in range(8)) for k in range(8)))
+
 # Finite-field Fourier layer: chi_j(k) = alpha^{jk} in F_49.
 def chi(j, k):
     return power(alpha, (j * k) % 8)
