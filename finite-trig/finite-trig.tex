@@ -1183,8 +1183,12 @@ Since $|\F_{49}^\times|=48$ and $|\F_7^\times|=6$, $|D|=8$.  The map
 is an isomorphism: its kernel is $\F_7^\times$ (the condition $z=\bar z$), and
 its image lies in the norm-one group $G$; both groups have order $8$.  A line
 through the origin has a direction in $D$.  The eight points of $C$ map to four
-lines (the antipodal pairs), while the other four directions are isotropic
-($x^2+y^2=0$) and contain no $\F_7$-point of $C$.
+lines (the antipodal pairs), while the other four directions have nonsquare
+nonzero norm and contain no $\F_7$-point of $C$.  There are no nonzero
+isotropic vectors over $\F_7$: $x^2+y^2=0$ would make $-1$ a square if
+$y\ne0$, and if $y=0$ it also forces $x=0$.  For a direction represented by
+$v$, a scalar multiple lies on $C$ exactly when $Q(v)$ is a nonzero square,
+since $Q(cv)=c^2Q(v)$.
 
 For distinct $A,B,P\in C$,
 \begin{equation}\label{eq:line-inscribed}
@@ -1506,7 +1510,13 @@ This note is deliberately small.  It does \emph{not} claim:
 \end{itemize}
 
 The finite-field Fourier layer of Section~\ref{sec:fourier} is now included.
-The natural next steps are:
+The next installment, \emph{Conic Motions, Arithmetic Histories, and Three
+Finite Calculi} (\texttt{../conic-dynamics/conic-dynamics.tex}), now gives the
+arithmetic-history realization of the eight-point circle step, its ordinary
+evaluation domains, and the comparison with split six-cycles and unipotent
+seven-cycles.  In characteristic seven the last has a nilpotent difference,
+whereas the first two admit Fourier diagonalization over appropriate fields.
+Further directions after this history/calculus interface are:
 \begin{enumerate}
   \item discrete calculus on $\mathbb P^1(\F_7)$: $\Delta$, summation, Hasse
         derivatives, differential forms, residues and the residue theorem,

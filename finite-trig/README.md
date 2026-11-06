@@ -103,9 +103,16 @@ if every check passes.
 
 ## Status and next steps
 
-This is a deliberately small installment.  It is **algebraic/finite**: there
-are no limits, no continuity, and no real analysis.  The finite-field Fourier
-layer of Section 10 is now included; the natural next notes are:
+This is a deliberately small installment. It is **algebraic/finite**: there
+are no limits, no continuity, and no real analysis. The finite-field Fourier
+layer is included. The next installment is now
+[Conic motions, histories, and three finite calculi](../conic-dynamics/README.md):
+it realizes the circle step by an explicit arithmetic history and proves the
+comparison of six-, seven-, and eight-cycle differences. It also corrects the
+distinction between nonsquare directions and isotropic directions: over F7,
+the form x²+y² has no nonzero isotropic vector.
+
+Further topics, after that history/calculus interface is established, are:
 
 1. discrete calculus on $\mathbb P^1(\mathbb F_7)$: $\Delta$, summation,
    Hasse derivatives, differential forms, residues, and the function-space

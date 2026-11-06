@@ -337,6 +337,17 @@ check("rho kernel is F_7^* (6 elements)",
       len([z for z in [(x, y) for x in range(P) for y in range(P)
                        if (x, y) != (0, 0)] if rho(z) == (1, 0)]) == 6)
 
+# A direction missing the unit circle has nonsquare norm, not zero norm.
+directions = {canon((x, y)) for x in range(P) for y in range(P)
+              if (x, y) != (0, 0)}
+direction_hits = {v: sum(canon(z) == v for z in T) for v in directions}
+check("no nonzero isotropic direction over F_7",
+      all((x * x + y * y) % P != 0 for x, y in directions))
+check("four directions meet C twice; four have nonsquare norm and miss C",
+      sorted(direction_hits.values()) == [0] * 4 + [2] * 4
+      and all((direction_hits[v] == 2) == (leg(v[0]**2 + v[1]**2) == 1)
+              for v in directions))
+
 triples = 0
 line_ok = True
 for A in T:
