@@ -2,10 +2,9 @@
 
 Exploration in the garden of mathematics.
 
-- [Finite trigonometry](finite-trig/README.md): the eight-point circle over F7,
-  angle groups, conic geometry, and the first Fourier layer.
-- [Conic motions and arithmetic histories](conic-dynamics/README.md): an explicit
-  elliptic arithmetic history, ordinary versus projective domains, and the
-  six-, seven-, and eight-cycle difference theories. This is the next step
-  toward the elliptic examples in AEG Paper I.
+- [Finite trigonometry](finite-trig/README.md): migrated to AEG research note 48.
+- [Conic motions and arithmetic histories](conic-dynamics/README.md): migrated
+  to AEG research note 49, continuing the finite-field difference and harmonic
+  analysis programme. The two directories retain migration pointers; articles,
+  figures, verifiers, and build scripts are maintained in `mountain/aeg-paper`.
 - [Octagons](octagons/README.md): rotational surface constructions.
